@@ -1,3 +1,4 @@
+import datetime
 import json
 from io import BytesIO
 from typing import Literal
@@ -13,10 +14,13 @@ from hottrack.models import Song
 from hottrack.utils.cover import make_cover_image
 
 
-def index(request: HttpRequest) -> HttpResponse:
+def index(request: HttpRequest, release_date: datetime.date = None) -> HttpResponse:
     query = request.GET.get("query", "").strip()
 
     song_qs: QuerySet[Song] = Song.objects.all()
+
+    if release_date:
+        song_qs = song_qs.filter(release_date=release_date)
 
     if query:
         song_qs = song_qs.filter(
