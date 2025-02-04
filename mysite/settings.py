@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--_7x-u@lz@n73m%ep_8s48sz%e74&vpr=b9f2^(6=rqp)j#@_r'
+SECRET_KEY = 'django-insecure-%2kuto1(tzt@-$cu%e69^xkh#f!6^-)qknqzu@8m=!3ql9ix@6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "hottrack",
+    'django_bootstrap5',
+    'core',
+    'hottrack',
 ]
 
 if DEBUG:
@@ -56,7 +58,7 @@ MIDDLEWARE = [
 ]
 
 if DEBUG:
-    MIDDLEWARE += [
+    MIDDLEWARE = [
         "debug_toolbar.middleware.DebugToolbarMiddleware",
     ] + MIDDLEWARE
 
@@ -73,6 +75,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.messages_list',
             ],
         },
     },
@@ -136,3 +139,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # django-debug-toolbar
 
 INTERNAL_IPS = ["127.0.0.1"]
+
+# messages framework
+
+from django.contrib.messages import constants as messages_constants
+
+if DEBUG:
+    MESSAGE_LEVEL = messages_constants.DEBUG
